@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Space) && attackCooldown <= 0){
             Hit();
+            attackCooldown = 0.5f;
         }
     }
 

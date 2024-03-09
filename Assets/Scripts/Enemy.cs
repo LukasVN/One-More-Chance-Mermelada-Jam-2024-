@@ -5,26 +5,15 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Transform player;
-    private float speed = 10f;
-    private Rigidbody2D rb;
-    private float pushBackForce = 1f;
-    private bool isPushed;
-    private float pushCooldown = 0.25f;
+    protected float speed = 10f;
+    protected Rigidbody2D rb;
 
-    private void Start() {
+    protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void LateUpdate()
+    protected virtual void LateUpdate()
     {
-        if(isPushed){
-            pushCooldown -= Time.deltaTime;
-            if (pushCooldown <= 0)
-                {
-                    isPushed = false;
-                }
-            return;
-        }
         Vector2 direction = player.position - transform.position;
         if (direction.magnitude > 2)
         {
@@ -33,10 +22,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void ReceiveDamage(Vector2 pushDirection){
-        Debug.Log("Hit");
-        rb.AddForce(pushDirection / 10 * pushBackForce, ForceMode2D.Impulse);
-        isPushed = true;
-        pushCooldown = 1f;
+    public virtual void ReceiveDamage(Vector2 pushDirection){
+        Debug.Log("Hit Generic");
     }
+
 }
+
