@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,10 +9,15 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public Transform hitController;
+    public HealthBar healthBar;
+    public GameObject MagicOrb;
     private Animator animator;
+    public int health = 100;
+    public int damage = 20;
     public float speed = 15f;
     public float hitRadius;
     private float attackCooldown = 0.5f;
+    public bool inmunity = false;
     
     void Start()
     {
@@ -32,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        Debug.Log(rb.velocity.x); 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -76,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("MovingBack",false);
             animator.SetBool("MovingFront",false);
         }
-        else if(rb.velocity.x == 0 && rb.velocity.y > 0){
+        if(rb.velocity.x == 0 && rb.velocity.y == 0 && !animator.GetBool("MovingBack") && !animator.GetBool("AttackingBack")){
             animator.SetBool("MovingSide",false);
             animator.SetBool("MovingFront",true);
             hitController.transform.localPosition = new Vector3(0, -0.3f, 0); // Move down
@@ -104,11 +109,14 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("AttackingBack");
         }
 
+        GameObject attackOrb = Instantiate(MagicOrb, hitController.position, Quaternion.identity);
+        Destroy(attackOrb, 0.5f);
+
         foreach (Collider2D collider in hits)
         {
-            if(collider.CompareTag("Enemy")){
+            if(collider.CompareTag("Enemy") && !collider.isTrigger){
                 Vector2 pushDirection = (collider.transform.position - transform.position).normalized;
-                collider.GetComponent<Enemy>().ReceiveDamage(pushDirection);
+                collider.GetComponent<Enemy>().ReceiveDamage(pushDirection,damage);
             }
         }
     }
@@ -116,6 +124,68 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos(){
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(hitController.position,hitRadius);
+    }
+
+    public void ReceiveDamage(int damage)
+    {
+        Debug.Log("Damage");
+        if(!inmunity){
+            if(health - damage <= 0){
+                StartCoroutine(DamageAnimation());
+                health = 0;
+                healthBar.SetValue(health);
+                //Game Over
+        }
+            else{
+                StartCoroutine(DamageAnimation());
+                health -= damage;
+                healthBar.SetValue(health);
+                inmunity = true;
+                Invoke("ResetInmunity",1);
+                StartCoroutine(InmunityAnimation());
+                
+            }
+        }
+        
+    }
+
+    protected IEnumerator DamageAnimation(){
+    for(int i = 0; i < 5; i++){
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+    }
+        spriteRenderer.color = Color.white;
+    }
+
+    protected IEnumerator InmunityAnimation(){
+        Color originalColor = Color.white;
+        float duration = 1f; // Duration for fade in/out
+
+        // Fade out
+        for (float t = 0; t < 1.0f; t += Time.deltaTime / duration)
+        {
+            Color newColor = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(1, 0, t));
+            spriteRenderer.color = newColor;
+            yield return null;
+        }
+
+        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        // Fade in
+        for (float t = 0; t < 1.0f; t += Time.deltaTime / duration)
+        {
+            Color newColor = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(0, 1, t));
+            spriteRenderer.color = newColor;
+            yield return null;
+        }
+
+        spriteRenderer.color = originalColor;
+    }
+
+    private void ResetInmunity(){
+        inmunity = false;
     }
     
 }
