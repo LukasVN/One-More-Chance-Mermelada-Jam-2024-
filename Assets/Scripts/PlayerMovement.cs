@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private Sprite initialSprite;
     public Transform hitController;
     private Animator animator;
     public float speed = 15f;
@@ -19,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        initialSprite = spriteRenderer.sprite;
     }
 
     private void Update() {
@@ -34,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log(rb.velocity.x); 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -72,8 +71,15 @@ public class PlayerMovement : MonoBehaviour
             }
         #endregion HitColliderPositioning
         
-        if(rb.velocity.x > rb.velocity.y){
+        if(Mathf.Abs(rb.velocity.x) > Mathf.Abs(rb.velocity.y)){
             animator.SetBool("MovingSide",true);
+            animator.SetBool("MovingBack",false);
+            animator.SetBool("MovingFront",false);
+        }
+        else if(rb.velocity.x == 0 && rb.velocity.y > 0){
+            animator.SetBool("MovingSide",false);
+            animator.SetBool("MovingFront",true);
+            hitController.transform.localPosition = new Vector3(0, -0.3f, 0); // Move down
         }
 
         Vector2 movement = new Vector2(horizontalInput, verticalInput).normalized * speed * Time.deltaTime;
@@ -84,6 +90,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Hit(){
         Collider2D[] hits = Physics2D.OverlapCircleAll(hitController.position, hitRadius);
+        animator.ResetTrigger("AttackingSide");
+        animator.ResetTrigger("AttackingFront");
+        animator.ResetTrigger("AttackingBack");
+        
+        if(animator.GetBool("MovingSide")){
+            animator.SetTrigger("AttackingSide");
+        }
+        else if(animator.GetBool("MovingFront")){
+            animator.SetTrigger("AttackingFront");
+        }
+        else if(animator.GetBool("MovingBack")){
+            animator.SetTrigger("AttackingBack");
+        }
 
         foreach (Collider2D collider in hits)
         {
