@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         Debug.Log(rb.velocity.x); 
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         animator.ResetTrigger("AttackingSide");
         animator.ResetTrigger("AttackingFront");
         animator.ResetTrigger("AttackingBack");
-        
+
         if(animator.GetBool("MovingSide")){
             animator.SetTrigger("AttackingSide");
         }
