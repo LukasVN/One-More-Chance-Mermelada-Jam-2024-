@@ -7,9 +7,13 @@ public class Enemy : MonoBehaviour
     public Transform player;
     protected float speed = 10f;
     protected Rigidbody2D rb;
+    protected SpriteRenderer spriteRenderer;
+    protected Color initialColor;
 
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        initialColor = spriteRenderer.color;
     }
 
     protected virtual void LateUpdate()
@@ -23,8 +27,15 @@ public class Enemy : MonoBehaviour
     }
 
     public virtual void ReceiveDamage(Vector2 pushDirection){
-        Debug.Log("Hit Generic");
+        StartCoroutine(DamageAnimation());
     }
 
+    protected IEnumerator DamageAnimation(){
+    for(int i = 0; i < 5; i++){
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+    }
+        spriteRenderer.color = initialColor;
+    }
 }
 

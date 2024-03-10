@@ -7,19 +7,19 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    public float speed = 15f;
+    private Sprite initialSprite;
     public Transform hitController;
+    private Animator animator;
+    public float speed = 15f;
     public float hitRadius;
     private float attackCooldown = 0.5f;
-    private Vector2 initialHitHorizontalPosition;
-    private Vector2 initialHitVerticalPosition;
-    public Sprite facingSide;
-    public Sprite facingFront;
-    public Sprite facingBack;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        initialSprite = spriteRenderer.sprite;
     }
 
     private void Update() {
@@ -41,33 +41,41 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movementDirection = new Vector2(horizontalInput, verticalInput);
 
         if (movementDirection.x != 0) {
-            spriteRenderer.flipX = movementDirection.x < 0f;
+            spriteRenderer.flipX = movementDirection.x > 0f;
         }
+        
 
         #region HitColliderPositioning
             if(movementDirection.x != 0){
                 if(spriteRenderer.flipX){
-                    hitController.transform.localPosition = new Vector3(-0.275f, 0, 0); // Move to left side
-                    spriteRenderer.sprite = facingSide;
+                    hitController.transform.localPosition = new Vector3(0.275f, 0, 0); // Move to left side
+                    animator.SetBool("MovingSide",true);
                 }
                 else{
-                    hitController.transform.localPosition = new Vector3(0.275f, 0, 0); // Move to right side
-                    spriteRenderer.sprite = facingSide;
+                    hitController.transform.localPosition = new Vector3(-0.275f, 0, 0); // Move to right side
+                    animator.SetBool("MovingSide",true);
                 }
             }
             if(movementDirection.y != 0){
                 if(movementDirection.y > 0){
                     hitController.transform.localPosition = new Vector3(0, 0.3f, 0); // Move up
-                    spriteRenderer.sprite = facingBack;
+                    animator.SetBool("MovingBack",true);
+                    animator.SetBool("MovingSide",false);
+                    animator.SetBool("MovingFront",false);
                 }
                 else{
                     hitController.transform.localPosition = new Vector3(0, -0.3f, 0); // Move down
-                    spriteRenderer.sprite = facingFront;
+                    animator.SetBool("MovingFront",true);
+                    animator.SetBool("MovingBack",false);
+                    animator.SetBool("MovingSide",false);
                 }    
             }
         #endregion HitColliderPositioning
         
-        
+        if(rb.velocity.x > rb.velocity.y){
+            animator.SetBool("MovingSide",true);
+        }
+
         Vector2 movement = new Vector2(horizontalInput, verticalInput).normalized * speed * Time.deltaTime;
         rb.MovePosition(rb.position + movement/3);
         

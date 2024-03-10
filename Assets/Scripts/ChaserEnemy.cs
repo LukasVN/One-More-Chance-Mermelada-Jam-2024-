@@ -26,6 +26,7 @@ public class ChaserEnemy : Enemy
     }
 
     public override void ReceiveDamage(Vector2 pushDirection){
+        base.ReceiveDamage(pushDirection);
         Debug.Log("Hit ChaserEnemy");
         rb.velocity = Vector2.zero;
         rb.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
