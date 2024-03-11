@@ -27,6 +27,8 @@ public class ChasingProjectile : EnemyProjectile
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
-        Destroy(gameObject);
+        if(other.CompareTag("Environment")){
+            Destroy(gameObject);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class ProjectileThrowerEnemy : Enemy
     protected Vector2 direction;
     public GameObject projectilePrefab;
     private GameObject projectile;
+    public float detectingDistance = 15f;
     private float timer = 0;
     public float shootDelay = 1f; 
 
@@ -22,11 +23,19 @@ public class ProjectileThrowerEnemy : Enemy
         base.LateUpdate();
         
         timer -= Time.deltaTime;
-        
-        if(Vector2.Distance(transform.position,player.position) < 15 && projectile == null && spriteRenderer.enabled && timer <= 0){
-            ThrowProjectile();
-            timer = shootDelay; 
+        if(Vector2.Distance(transform.position,player.position) < detectingDistance ){
+            if(projectile == null && spriteRenderer.enabled && timer <= 0){
+                ThrowProjectile();
+                timer = shootDelay; 
         }
+        else{
+            Vector2 direction = player.position - transform.position;
+            Vector2 velocity = direction.normalized * speed * Time.deltaTime;
+            rb.MovePosition((Vector2)transform.position + velocity);
+        }
+
+        }
+        
     }
 
     protected virtual void ThrowProjectile(){
