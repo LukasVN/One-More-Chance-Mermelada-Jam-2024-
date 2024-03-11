@@ -9,8 +9,8 @@ public class Boss : Enemy
     public Transform enemyPositionRight;
     protected float pushBackForce = 1.5f;
     protected bool isPushed = false;
-    protected float pushCooldown = 2f;
-    protected float habilityCooldown = 5f;
+    protected float pushCooldown = 0.1f;
+    protected float habilityCooldown = 3f;
     protected bool usingHability;
     public GameObject projectilePrefab;
     protected bool castingProjectiles = false;
@@ -77,7 +77,7 @@ public class Boss : Enemy
         rb.velocity = Vector2.zero;
         rb.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
         isPushed = true;
-        pushCooldown = 0.4f;
+        pushCooldown = 0.1f;
     }
 
     protected virtual void UseHability(int habilityNum){
@@ -108,9 +108,10 @@ public class Boss : Enemy
         spawningEnemies = true;
         Instantiate(enemies[Random.Range(0,enemies.Length)],enemyPositionLeft.position,Quaternion.identity);
         Instantiate(enemies[Random.Range(0,enemies.Length)],enemyPositionRight.position,Quaternion.identity);
-        habilityCooldown = 15f;
+        habilityCooldown = 8f;
 
     }
 
     
 }
+

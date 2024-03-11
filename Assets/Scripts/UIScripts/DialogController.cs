@@ -11,7 +11,7 @@ public class DialogController : MonoBehaviour
     private int index = 0;
     public float dialogSpeed;
     public AudioClip dialogSound;
-    public float pitch = 0.15f;
+    public float pitch = 1f;
     public AudioSource audioSource;
     private Coroutine sentenceCoroutine;
 
@@ -34,11 +34,11 @@ public class DialogController : MonoBehaviour
     }
 
     IEnumerator WriteSentence(){
-        int charIndex = 0; // Add this line
+        int charIndex = 0;
         foreach (char character in sentences[index].ToCharArray())
         {
             dialogueText.text += character;
-            if(charIndex % 3 == 0){ // Change index to charIndex
+            if(charIndex % 2 == 0){
                 if(audioSource.isPlaying){
                     audioSource.Stop();
                 }
@@ -46,7 +46,7 @@ public class DialogController : MonoBehaviour
                 audioSource.PlayOneShot(dialogSound);
             }
             yield return new WaitForSecondsRealtime(dialogSpeed);
-            charIndex++; // Add this line
+            charIndex++;
         }            
         index++;   
         sentenceCoroutine = null;    

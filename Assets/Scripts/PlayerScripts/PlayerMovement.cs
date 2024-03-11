@@ -3,9 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public GameObject gameOver;
+    public string currentScene;
+    public string menuScene;
+    public AudioClip spellCast;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public Transform hitController;
@@ -19,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private float attackCooldown = 0.5f;
     public bool inmunity = false;
     public int coins = 0;
-    
+    private bool isGameOver;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,11 +35,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update() {
+        if(isGameOver){
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit")){
+                isGameOver = false;
+                gameOver.SetActive(false);
+                Time.timeScale = 1;
+                SceneManager.LoadScene(currentScene);
+            }
+            else if(Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.JoystickButton7)){
+                SceneManager.LoadScene(menuScene);
+            }
+            return;
+        }
         if(attackCooldown > 0){
             attackCooldown -= Time.deltaTime;
         }
         if(Input.GetKeyDown(KeyCode.Space) && attackCooldown <= 0 || Input.GetButtonDown("Submit") && attackCooldown <= 0){
             Hit();
+            audioSource.Stop();
+            audioSource.PlayOneShot(spellCast);
             attackCooldown = 0.5f;
         }
     }
@@ -135,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(DamageAnimation());
                 health = 0;
                 healthBar.SetValue(health);
-                //Game Over
+                SetGameOver();
         }
             else{
                 StartCoroutine(DamageAnimation());
@@ -191,6 +212,20 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetCoins(int newValue){
         coins = newValue;
+    }
+
+    private void SetGameOver(){
+        Time.timeScale = 0;
+        animator.ResetTrigger("AttackingSide");
+        animator.ResetTrigger("AttackingFront");
+        animator.ResetTrigger("AttackingBack");
+        animator.SetBool("MovingSide",false);
+        animator.SetBool("MovingBack",false);
+        animator.SetBool("MovingFront",false);
+        animator.SetBool("GameOver",true);
+        Camera.main.orthographicSize = 2;
+        isGameOver = true;
+        gameOver.SetActive(true);
     }
     
 }

@@ -13,9 +13,11 @@ public class OnSacrificeRandomStatBoost : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player") && player.GetComponent<PlayerMovement>().health - 25 > 0){
             player.GetComponent<PlayerMovement>().health -=25;
+            player.GetComponent<PlayerMovement>().healthBar.SetValue(player.GetComponent<PlayerMovement>().health);
             player.GetComponent<PlayerMovement>().speed += 10;
             player.GetComponent<PlayerMovement>().damage += 10;
             Destroy(gameObject);
         }
     }
 }
+
