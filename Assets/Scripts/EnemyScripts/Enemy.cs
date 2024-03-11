@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
             GetComponent<CapsuleCollider2D>().enabled = false;
             GameObject death = Instantiate(deathAnim, transform.position,quaternion.identity);
             Destroy(death,0.4f);
-            Destroy(gameObject,5);
+            Destroy(gameObject,0.5f);
         }
     }
 

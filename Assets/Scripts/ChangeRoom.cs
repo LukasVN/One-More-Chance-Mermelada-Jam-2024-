@@ -11,13 +11,13 @@ public class ChangeRoom : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player") && !enemiesSpawned){
-            enemiesSpawned = true;
-            Invoke("spawnEnemies",1f);
+            player.transform.position = newPlayerPosition.position;
+            Invoke("spawnEnemies",0.5f);
         }
     }
 
     private void spawnEnemies(){
         roomEnemies.SetActive(true);
-        player.transform.position = newPlayerPosition.position;
+        enemiesSpawned = true;
     }
 }
