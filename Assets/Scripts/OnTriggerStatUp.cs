@@ -26,11 +26,15 @@ public class OnTriggerStatUp : MonoBehaviour
             {
                 case "speed": player.GetComponent<PlayerMovement>().speed = player.GetComponent<PlayerMovement>().speed  + boostValue;
                     PurchaseItem();
-                    Destroy(gameObject);
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    GetComponent<CircleCollider2D>().enabled = false;
+                    Destroy(gameObject,1f);
                 break;
                 case "damage": player.GetComponent<PlayerMovement>().damage = player.GetComponent<PlayerMovement>().damage  + boostValue;
                     PurchaseItem();
-                    Destroy(gameObject);
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    GetComponent<CircleCollider2D>().enabled = false;
+                    Destroy(gameObject,1f);
                 break;
                 case "health": 
                     if(player.GetComponent<PlayerMovement>().health + boostValue > 100){
@@ -40,14 +44,18 @@ public class OnTriggerStatUp : MonoBehaviour
                         GameObject.Find("Player").GetComponent<PlayerMovement>().SetCoins(player.GetComponent<PlayerMovement>().coins);
                         audioSource.Stop();
                         audioSource.PlayOneShot(purchaseSound);
-                        Destroy(gameObject);
+                        GetComponent<SpriteRenderer>().enabled = false;
+                        GetComponent<CircleCollider2D>().enabled = false;
+                        Destroy(gameObject,1f);
                     }
                     else{
                         player.GetComponent<PlayerMovement>().healthBar.SetValue(player.GetComponent<PlayerMovement>().health  + boostValue);
                         player.GetComponent<PlayerMovement>().health = player.GetComponent<PlayerMovement>().health  + boostValue;
                         PurchaseItem();
                         GameObject.Find("Player").GetComponent<PlayerMovement>().SetCoins(player.GetComponent<PlayerMovement>().coins);
-                        Destroy(gameObject);
+                        GetComponent<SpriteRenderer>().enabled = false;
+                        GetComponent<CircleCollider2D>().enabled = false;
+                        Destroy(gameObject,1f);
                     }
                 break;
             }
