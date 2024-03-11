@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -13,6 +12,7 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
     protected Color initialColor;
+    public GameObject[] coins;
 
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -29,8 +29,11 @@ public class Enemy : MonoBehaviour
             speed = 0;
             spriteRenderer.enabled = false;
             GetComponent<CapsuleCollider2D>().enabled = false;
-            GameObject death = Instantiate(deathAnim, transform.position,quaternion.identity);
+            GameObject death = Instantiate(deathAnim, transform.position,Quaternion.identity);
             Destroy(death,0.4f);
+            if(Random.Range(0,2) == 1){
+                Instantiate(coins[Random.Range(0,coins.Length)],transform.position,Quaternion.identity);
+            }
             Destroy(gameObject,0.5f);
         }
     }

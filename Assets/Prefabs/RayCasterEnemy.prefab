@@ -107,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.087065585, b: 0, a: 0.43137255}
   m_FlipX: 0
@@ -249,7 +249,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -333,7 +333,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -450,8 +450,12 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 8
   health: 60
-  damage: 10
+  damage: 5
   deathAnim: {fileID: 6421965375679057038, guid: aae5eb9812b2db545be3f17530d08c8e, type: 3}
+  coins:
+  - {fileID: 9187887905459433792, guid: 625d8c300b56cec4faf1da5e70e273e0, type: 3}
+  - {fileID: 9183184832778559922, guid: 4f763bea88d1c524aa5d48d7eb8ec760, type: 3}
+  - {fileID: 1842608761041294195, guid: ee37caf01e3d2d748a9f0cd6e586673c, type: 3}
   damagingRay: {fileID: 3858877665737438125}
   warningObject: {fileID: 1487618800770663662}
   idleSprite: {fileID: 733357159, guid: a66378bcf7a5e67429bcdf7755dbd6d5, type: 3}

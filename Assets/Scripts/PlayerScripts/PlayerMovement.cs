@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float hitRadius;
     private float attackCooldown = 0.5f;
     public bool inmunity = false;
+    public int coins = 0;
     
     void Start()
     {
@@ -30,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         if(attackCooldown > 0){
             attackCooldown -= Time.deltaTime;
         }
-        if(Input.GetKeyDown(KeyCode.Space) && attackCooldown <= 0){
+        if(Input.GetKeyDown(KeyCode.Space) && attackCooldown <= 0 || Input.GetButtonDown("Submit") && attackCooldown <= 0){
             Hit();
             attackCooldown = 0.5f;
         }
@@ -186,6 +187,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetInmunity(){
         inmunity = false;
+    }
+
+    public void SetCoins(int newValue){
+        coins = newValue;
     }
     
 }

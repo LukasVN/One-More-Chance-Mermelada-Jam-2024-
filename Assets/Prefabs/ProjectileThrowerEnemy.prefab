@@ -103,8 +103,12 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 8
   health: 60
-  damage: 10
+  damage: 5
   deathAnim: {fileID: 6421965375679057038, guid: aae5eb9812b2db545be3f17530d08c8e, type: 3}
+  coins:
+  - {fileID: 9187887905459433792, guid: 625d8c300b56cec4faf1da5e70e273e0, type: 3}
+  - {fileID: 9183184832778559922, guid: 4f763bea88d1c524aa5d48d7eb8ec760, type: 3}
+  - {fileID: 1842608761041294195, guid: ee37caf01e3d2d748a9f0cd6e586673c, type: 3}
   projectilePrefab: {fileID: 6790713567452093561, guid: 4b3d531e122e92045b58840dc6911e0d, type: 3}
   onRangeSprite: {fileID: 1701553725, guid: e67183503cf5ca54c966563d565ed4e7, type: 3}
   detectingDistance: 10
