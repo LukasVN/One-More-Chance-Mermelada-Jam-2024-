@@ -21,17 +21,20 @@ public class OnTriggerStatUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player") && player.GetComponent<PlayerMovement>().coins >= price){
-            Debug.Log("Trigger");
             switch (modifiedStat)
             {
                 case "speed": player.GetComponent<PlayerMovement>().speed = player.GetComponent<PlayerMovement>().speed  + boostValue;
                     PurchaseItem();
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(purchaseSound);
                     GetComponent<SpriteRenderer>().enabled = false;
                     GetComponent<CircleCollider2D>().enabled = false;
                     Destroy(gameObject,1f);
                 break;
                 case "damage": player.GetComponent<PlayerMovement>().damage = player.GetComponent<PlayerMovement>().damage  + boostValue;
                     PurchaseItem();
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(purchaseSound);
                     GetComponent<SpriteRenderer>().enabled = false;
                     GetComponent<CircleCollider2D>().enabled = false;
                     Destroy(gameObject,1f);
@@ -52,6 +55,8 @@ public class OnTriggerStatUp : MonoBehaviour
                         player.GetComponent<PlayerMovement>().healthBar.SetValue(player.GetComponent<PlayerMovement>().health  + boostValue);
                         player.GetComponent<PlayerMovement>().health = player.GetComponent<PlayerMovement>().health  + boostValue;
                         PurchaseItem();
+                        audioSource.Stop();
+                        audioSource.PlayOneShot(purchaseSound);
                         GameObject.Find("Player").GetComponent<PlayerMovement>().SetCoins(player.GetComponent<PlayerMovement>().coins);
                         GetComponent<SpriteRenderer>().enabled = false;
                         GetComponent<CircleCollider2D>().enabled = false;

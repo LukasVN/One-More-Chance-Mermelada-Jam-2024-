@@ -108,7 +108,7 @@ public class Boss : Enemy
         spawningEnemies = true;
         Instantiate(enemies[Random.Range(0,enemies.Length)],enemyPositionLeft.position,Quaternion.identity);
         Instantiate(enemies[Random.Range(0,enemies.Length)],enemyPositionRight.position,Quaternion.identity);
-        habilityCooldown = 10f;
+        habilityCooldown = 9f;
 
     }
 

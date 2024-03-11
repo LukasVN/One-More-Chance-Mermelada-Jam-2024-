@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource musicAudioSource;
+    public AudioSource sfxAudioSource;
     float deltaTime = 0.0f;
     private void Start() {
         QualitySettings.vSyncCount = 0;  // Disable vSync
         Application.targetFrameRate = 61; // Set target FPS
+
+        if(PlayerPrefs.HasKey(musicAudioSource.name)){
+            musicAudioSource.volume = PlayerPrefs.GetFloat(musicAudioSource.name);
+        }
+        if(PlayerPrefs.HasKey(sfxAudioSource.name)){
+            sfxAudioSource.volume = PlayerPrefs.GetFloat(sfxAudioSource.name);
+        }
     }
     void Update()
     {
