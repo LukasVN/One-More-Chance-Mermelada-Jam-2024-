@@ -8,6 +8,9 @@ public class ChaserEnemy : Enemy
     protected bool isPushed = false;
     protected float pushCooldown = 0.4f;
 
+    private void OnEnable() {
+        // Stat change based on difficulty and/or randomness
+    }
     protected override void LateUpdate()
     {
         if(isPushed){

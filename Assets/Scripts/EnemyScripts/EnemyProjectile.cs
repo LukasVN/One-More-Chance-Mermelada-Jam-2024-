@@ -12,9 +12,6 @@ public class EnemyProjectile : MonoBehaviour
                 other.gameObject.GetComponent<PlayerMovement>().ReceiveDamage(damage);
             }
         }
-        else if(other.gameObject.CompareTag("Environment")){
-            Destroy(gameObject);
-        }
     }
 
     protected virtual void OnTriggerStay2D(Collider2D other) {
