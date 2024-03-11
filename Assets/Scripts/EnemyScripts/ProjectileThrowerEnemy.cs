@@ -23,12 +23,15 @@ public class ProjectileThrowerEnemy : Enemy
         base.LateUpdate();
         
         timer -= Time.deltaTime;
-        if(Vector2.Distance(transform.position,player.position) < detectingDistance ){
+
+        if(Vector2.Distance(transform.position,player.position) <= detectingDistance ){
+            Debug.Log("In range");
             if(projectile == null && spriteRenderer.enabled && timer <= 0){
                 ThrowProjectile();
                 timer = shootDelay; 
         }
-        else{
+        else if(Vector2.Distance(transform.position,player.position) > detectingDistance){
+            Debug.Log("Moving");
             Vector2 direction = player.position - transform.position;
             Vector2 velocity = direction.normalized * speed * Time.deltaTime;
             rb.MovePosition((Vector2)transform.position + velocity);
