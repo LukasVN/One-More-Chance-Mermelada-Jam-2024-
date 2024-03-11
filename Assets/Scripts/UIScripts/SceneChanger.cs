@@ -8,10 +8,14 @@ public class SceneChanger : MonoBehaviour
     public string sceneToChange;
     void OnEnable()
     {
-        Invoke("ChangeScene",2);
+        Invoke("ChangeScene",10);
     }
 
-    // Update is called once per frame
+    private void LateUpdate() {
+        if(Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKey(KeyCode.M)){
+            ChangeScene();
+        }
+    }
     
     private void ChangeScene(){
         SceneManager.LoadScene(sceneToChange);
