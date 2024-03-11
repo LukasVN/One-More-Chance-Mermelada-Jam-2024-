@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         initialColor = spriteRenderer.color;
+        if(player == null){
+            player = GameObject.Find("Player").transform;
+        }
     }
 
     protected virtual void LateUpdate()
