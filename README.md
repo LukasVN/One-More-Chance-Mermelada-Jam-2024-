@@ -8,7 +8,7 @@ by Lucas Varela Negro and Asier Rodrigo Negro
 **Programmer:**  
 - Lucas Varela Negro
 
-**Game Designer:**  
+**Game Designers:**  
 - Asier Rodrigo Negro  
 - Lucas Varela Negro
 
