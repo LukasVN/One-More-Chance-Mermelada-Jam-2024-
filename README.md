@@ -1,19 +1,33 @@
-Game made for the Mermelada Jam 2024 by Lucas Varela Negro and Asier Rodrigo Negro.
+Game made for the Mermelada Jam #2 by Lucas Varela Negro and Asier Rodrigo Negro.
 
-Credits:
+Credits: 
 
-Programming - Lucas Varela Negro
+Programmer: 
 
-UI Art - Lucas Varela Negro
+- Lucas Varela Negro 
 
-General Art - Asier Rodrigo Negro
+Game Designer: 
+
+- Asier Rodrigo Negro
+
+- Lucas Varela Negro 
+
+Music: 
+
+Asier Rodrigo Negro 
+
+Artist & Animator: 
+
+- Asier Rodrigo Negro 
 
 
 
-External Assets:
+Some Assets: 
 
-  Background and Ground Assets [Free Assets]:
-  Jesse Munguia | Twitter | @Jsf23Art (Source: https://jesse-m.itch.io/jungle-pack)
-  
-  Music and Sounds:
-  Audio Arcade: The Definitive Collection of Music and Sound FX from Ovani Sound
+- Kenney (Input prompts).
+
+- Studio Fallen (Small chaser Demon).
+
+- Brackeys (2D Mega Pixel).
+
+#MermeladaJam2024
