@@ -3,8 +3,12 @@ Game made for the Mermelada Jam 2024 by Lucas Varela Negro and Asier Rodrigo Neg
 Credits:
 
 Programming - Lucas Varela Negro
+
 UI Art - Lucas Varela Negro
+
 General Art - Asier Rodrigo Negro
+
+
 
 External Assets:
 
